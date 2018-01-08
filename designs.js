@@ -1,5 +1,4 @@
-
-// Select size input
+// -------表格部分---------
 let height, width;
 //定义初始值
 //height = $('#input_height').val();//行
@@ -35,10 +34,20 @@ form.submit(function makeGrid(){
     event.preventDefault();//防止一提交就归零
 });
 
-form.submit(makeGrid());
 
-// Select color input
+//---------颜色部分-----------
 let color;
-color = $('#colorPicker').val();
+//定义默认值
+//color=black;
+//更改颜色值
+$('#colorPicker').change(function(){
+    color = $(this).val();
+    $('#myColor').text(color);
+});
 
-//$(color).onchange(function(){});
+let td;
+td = table.find('td');
+td.hover(function(){
+//    $(this).attr("value", "#ff0080")
+    $(this).css("background-color", color);
+});

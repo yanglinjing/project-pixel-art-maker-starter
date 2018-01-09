@@ -23,7 +23,7 @@ form.submit(function makeGrid(){
 //清除现有的height和width
     table.find('*').remove();//.find(selector)selector是必填的
 //确认表格尺寸对话框
-    alert("Make a " + height + " x " + width + " picture?");
+//    alert("Make a " + height + " x " + width + " picture?");
 //画表格
     for (let row=0; row<height; row++){//小于而不是小于等于
         table.append("<tr></tr>");
@@ -35,19 +35,18 @@ form.submit(function makeGrid(){
 });
 
 
-//---------颜色部分-----------
+//---------调色盘部分-----------
 let color;
-//定义默认值
-//color=black;
+//定义初始值
+color = "#ff80ff";
+$('#myColor').text(color);
 //更改颜色值
 $('#colorPicker').change(function(){
     color = $(this).val();
     $('#myColor').text(color);
 });
 
-let td;
-td = table.find('td');
-td.hover(function(){
-//    $(this).attr("value", "#ff0080")
-    $(this).css("background-color", color);
+//---------绘图部分-----------
+table.on('click', 'td', function(){
+  $(this).css("background-color", color);
 });

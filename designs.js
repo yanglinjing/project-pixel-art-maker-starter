@@ -47,6 +47,38 @@ $('#colorPicker').change(function(){
 });
 
 //---------绘图部分-----------
-table.on('click', 'td', function(){
-  $(this).css("background-color", color);
+//点击变色
+//table.on('mousedown', 'td', function(){
+//  $(this).css({"background-color":color, "border-color":color});
+//}); //可用
+
+//滑过就变色，但不能判断鼠标是否按住
+//table.on('mousemove', 'td', function(){
+//    $(this).css({"background-color":color, "border-color":color});
+//});//可用
+
+//鼠标悬停时，格子变色
+//table.on('mouseenter', 'td', function(){
+//  $(this).css("background-color", color);
+//});//可用
+
+//table.on('mouseleave', 'td', function(){
+//  $(this).css("background-color", "");
+//});//可用
+
+//按下鼠标+滑动=变色
+let clicking = false;
+
+table.on('mousedown', 'td', function(){
+  clicking = true;
+});
+
+$(document).on('mouseup', function(){
+  clicking = false;
+});
+
+table.on('mousemove', 'td', function(){
+  if(clicking == true){
+    $(this).css({"background-color":color, "border-color":color});
+  };
 });

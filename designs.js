@@ -29,7 +29,7 @@ form.submit(function makeGrid(){
         table.append("<tr></tr>");
     }
     for(let column=0; column<width; column++){
-        table.children('tr').append("<td></td>");
+        table.children('tr').append("<td style=\"background-color:\"></td>");
     }
     event.preventDefault();//防止一提交就归零
 });
@@ -37,36 +37,22 @@ form.submit(function makeGrid(){
 
 //---------调色盘部分-----------
 let color;
-//定义初始值
-color = "#ff80ff";
-$('#myColor').text(color);
+color = "#ff80ff";//定义颜色初始值
+$('#myColor').text(color);//文字显示当前颜色值
 //更改颜色值
 $('#colorPicker').change(function(){
     color = $(this).val();
-    $('#myColor').text(color);
+    $('#myColor').text(color);//文字显示当前颜色值
 });
 
 //---------绘图部分-----------
+
 //点击变色
-//table.on('mousedown', 'td', function(){
-//  $(this).css({"background-color":color, "border-color":color});
-//}); //可用
+table.on('click', 'td', function(){
+  $(this).css({"background-color":color, "border-color":color});
+});
 
-//滑过就变色，但不能判断鼠标是否按住
-//table.on('mousemove', 'td', function(){
-//    $(this).css({"background-color":color, "border-color":color});
-//});//可用
-
-//鼠标悬停时，格子变色
-//table.on('mouseenter', 'td', function(){
-//  $(this).css("background-color", color);
-//});//可用
-
-//table.on('mouseleave', 'td', function(){
-//  $(this).css("background-color", "");
-//});//可用
-
-//按下鼠标+滑动=变色
+//-----------按下鼠标+滑动=变色----------
 let clicking = false;
 
 table.on('mousedown', 'td', function(){
@@ -81,4 +67,24 @@ table.on('mousemove', 'td', function(){
   if(clicking == true){
     $(this).css({"background-color":color, "border-color":color});
   };
+});
+//-----------按下鼠标+滑动=变色 end----------
+
+
+//------------鼠标悬停时，格子变色-----------
+let tdColor;
+
+
+table.on('mouseenter', 'td', function(){
+    tdColor = $(this).css("background-color");//获取td的颜色-可用
+    $(this).css("background-color", color); //可用
+    $('#tdColor').text(tdColor);//文字表述获取的td颜色
+});
+
+table.on('mouseleave', 'td', function(){
+    $(this).css("background-color", tdColor);//可用
+
+//    var htmlString = $(this).html();
+//    $('#tdHtml').text(htmlString);
+
 });

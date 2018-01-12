@@ -93,9 +93,5 @@ function rgb2hex(rgb) {
 //-----------rgb转换hex-----end---------------
 
 table.on('mouseleave', 'td', function(){
-    $(this).css("background-color", rgb2hex(rgb));//可用
-
-//    var htmlString = $(this).html();
-//    $('#tdHtml').text(htmlString);
-
+//    $(this).css("background-color", rgb2hex(rgb));//可用
 });

@@ -29,7 +29,7 @@ form.submit(function makeGrid(){
         table.append("<tr></tr>");
     }
     for(let column=0; column<width; column++){
-        table.children('tr').append("<td style=\"background-color:\"></td>");
+        table.children('tr').append("<td style=\"background-color:#fff\"></td>");
     }
     event.preventDefault();//防止一提交就归零
 });
@@ -39,19 +39,15 @@ form.submit(function makeGrid(){
 let color;
 color = "#ff80ff";//定义颜色初始值
 $('#myColor').text(color);//文字显示当前颜色值
-//更改颜色值
-$('#colorPicker').change(function(){
+$('#colorPicker').change(function(){//更改颜色值
     color = $(this).val();
     $('#myColor').text(color);//文字显示当前颜色值
 });
 
 //---------绘图部分-----------
-
-//点击变色
-table.on('click', 'td', function(){
+table.on('click', 'td', function(){//点击变色
   $(this).css({"background-color":color, "border-color":color});
 });
-
 //-----------按下鼠标+滑动=变色----------
 let clicking = false;
 
@@ -81,22 +77,23 @@ table.on('mouseenter', 'td', function(){
     $('#tdColor').text(rgb2hex(rgb));//文字表述获取的td颜色
 });
 
-
+//-----------rgb转换hex（因为jQuery提取的颜色格式rgb hex rgba各不相同）----------
 function rgb2hex(rgb) {
     let preColor;
     if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(rgb)){
       preColor=rgb;
       return preColor;
-    }else{
+    }else{//如何应对rgba(0,0,0,0)呢？暂时把背景色设置成#fff
       rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
       function hex(x) {return ("0" + parseInt(x).toString(16)).slice(-2);}
       preColor = "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
       return preColor;
-  }
+    }
 }
+//-----------rgb转换hex-----end---------------
 
 table.on('mouseleave', 'td', function(){
-//    $(this).css("background-color", rgb2hex(rgb));//可用
+    $(this).css("background-color", rgb2hex(rgb));//可用
 
 //    var htmlString = $(this).html();
 //    $('#tdHtml').text(htmlString);

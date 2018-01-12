@@ -72,17 +72,31 @@ table.on('mousemove', 'td', function(){
 
 
 //------------鼠标悬停时，格子变色-----------
-let tdColor;
 
 
+var rgb;
 table.on('mouseenter', 'td', function(){
-    tdColor = $(this).css("background-color");//获取td的颜色-可用
+    rgb = $(this).css("background-color");//获取td的颜色-可用
     $(this).css("background-color", color); //可用
-    $('#tdColor').text(tdColor);//文字表述获取的td颜色
+    $('#tdColor').text(rgb2hex(rgb));//文字表述获取的td颜色
 });
 
+
+function rgb2hex(rgb) {
+    let preColor;
+    if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(rgb)){
+      preColor=rgb;
+      return preColor;
+    }else{
+      rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+      function hex(x) {return ("0" + parseInt(x).toString(16)).slice(-2);}
+      preColor = "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+      return preColor;
+  }
+}
+
 table.on('mouseleave', 'td', function(){
-    $(this).css("background-color", tdColor);//可用
+//    $(this).css("background-color", rgb2hex(rgb));//可用
 
 //    var htmlString = $(this).html();
 //    $('#tdHtml').text(htmlString);

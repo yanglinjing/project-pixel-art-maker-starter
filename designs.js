@@ -45,25 +45,27 @@ $('#colorPicker').change(function(){//更改颜色值
 });
 
 //---------绘图部分-----------
+let clicking = false;
 table.on('click', 'td', function(){//点击变色
   $(this).css({"background-color":color, "border-color":color});
-});
-//-----------按下鼠标+滑动=变色----------
-let clicking = false;
-
-table.on('mousedown', 'td', function(){
   clicking = true;
 });
-
-$(document).on('mouseup', function(){
-  clicking = false;
-});
-
-table.on('mousemove', 'td', function(){
-  if(clicking == true){
-    $(this).css({"background-color":color, "border-color":color});
-  };
-});
+//-----------按下鼠标+滑动=变色----------
+// let clicking = false;
+//
+// table.on('mousedown', 'td', function(){
+//   clicking = true;
+// });
+//
+// $(document).on('mouseup', function(){
+//   clicking = false;
+// });
+//
+// table.on('mousemove', 'td', function(){
+//   if(clicking == true){
+//     $(this).css({"background-color":color, "border-color":color});
+//   };
+// });
 //-----------按下鼠标+滑动=变色 end----------
 
 
@@ -93,5 +95,8 @@ function rgb2hex(rgb) {
 //-----------rgb转换hex-----end---------------
 
 table.on('mouseleave', 'td', function(){
-//    $(this).css("background-color", rgb2hex(rgb));//可用
+    if(!clicking){
+      $(this).css("background-color", rgb2hex(rgb));//可用
+    }
+    clicking = false;
 });

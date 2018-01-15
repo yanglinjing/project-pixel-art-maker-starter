@@ -45,38 +45,38 @@ $('#colorPicker').change(function(){//更改颜色值
 });
 
 //---------绘图部分-----------
-let clicking = false;
+let clicked = false;//曾点击过
+
 table.on('click', 'td', function(){//点击变色
   $(this).css({"background-color":color, "border-color":color});
+  clicked = true;
+});
+
+let clicking = false;//按住鼠标左键
+table.on('mousedown', 'td', function(){
   clicking = true;
 });
-//-----------按下鼠标+滑动=变色----------
-// let clicking = false;
-//
-// table.on('mousedown', 'td', function(){
-//   clicking = true;
-// });
-//
-// $(document).on('mouseup', function(){
-//   clicking = false;
-// });
-//
-// table.on('mousemove', 'td', function(){
-//   if(clicking == true){
-//     $(this).css({"background-color":color, "border-color":color});
-//   };
-// });
-//-----------按下鼠标+滑动=变色 end----------
-
-
-//------------鼠标悬停时，格子变色-----------
-
+$(document).on('mouseup', function(){
+  clicking = false;
+});
 
 var rgb;
 table.on('mouseenter', 'td', function(){
-    rgb = $(this).css("background-color");//获取td的颜色-可用
-    $(this).css("background-color", color); //可用
+    rgb = $(this).css("background-color");//获取td的颜色
+    if(clicking){//按下鼠标+滑动=变色
+        $(this).css({"background-color":color, "border-color":color});
+        clicked = true;
+    }else{//鼠标悬停时，格子变色
+        $(this).css("background-color", color); //可用
+    }
     $('#tdColor').text(rgb2hex(rgb));//文字表述获取的td颜色
+});
+
+table.on('mouseleave', 'td', function(){//mousemove和mouseenter/mouseleave有冲突，会彼此覆盖
+    if(!clicked){//鼠标离开时，格子恢复之前颜色
+      $(this).css("background-color", rgb2hex(rgb));
+    }
+    clicked = false;
 });
 
 //-----------rgb转换hex（因为jQuery提取的颜色格式rgb hex rgba各不相同）----------
@@ -93,10 +93,3 @@ function rgb2hex(rgb) {
     }
 }
 //-----------rgb转换hex-----end---------------
-
-table.on('mouseleave', 'td', function(){
-    if(!clicking){
-      $(this).css("background-color", rgb2hex(rgb));//可用
-    }
-    clicking = false;
-});

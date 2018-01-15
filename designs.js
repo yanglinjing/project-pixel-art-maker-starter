@@ -41,39 +41,37 @@ color = "#ff80ff";//定义颜色初始值
 $('#myColor').text(color);//文字显示当前颜色值
 
 let inkColor = [];
-function inkBox(newColor){
+function inkBoxArray(newColor){//数组保存最多5个用过颜色值
     inkColor.unshift(newColor);//把颜色值添加到数组第一个位置
     if(inkColor.length=6){
       inkColor.pop();//保持始终只有5个颜色值
     }
 }
-
-$('#colorPicker').change(function(){
-    color = $(this).val();//更改颜色值
-    $('#myColor').text(color);//文字显示当前颜色值
-    inkBox(color);
-    $('#inkBox1').css("background-color", inkColor[0]);//在小方格里保存颜色值
+function inkBoxColor(){//在小方格里画出保存的颜色值
+    $('#inkBox1').css("background-color", inkColor[0]);
     $('#inkBox2').css("background-color", inkColor[1]);
     $('#inkBox3').css("background-color", inkColor[2]);
     $('#inkBox4').css("background-color", inkColor[3]);
     $('#inkBox5').css("background-color", inkColor[4]);
+}
+
+$('#colorPicker').change(function(){//点击拾色器，选择当前颜色
+    color = $(this).val();//更改颜色值
+    $('#myColor').text(color);//文字显示当前颜色值
+    inkBoxArray(color);
+    inkBoxColor();
     $('#inkColorText').text(inkColor);
 });
-
 
 $('#inkBox').on('click', 'td', function(){//点击已保存的值时，替换当前颜色值
     let inkRgb;
     inkRgb = $(this).css("background-color");
     color = rgb2hex(inkRgb);
     $('#colorPickerValue').text(color);//文字显示当前颜色值
-
-    inkBox(color);
-    $('#inkBox1').css("background-color", inkColor[0]);//在小方格里保存颜色值
-    $('#inkBox2').css("background-color", inkColor[1]);
-    $('#inkBox3').css("background-color", inkColor[2]);
-    $('#inkBox4').css("background-color", inkColor[3]);
-    $('#inkBox5').css("background-color", inkColor[4]);
+    inkBoxArray(color);
+    inkBoxColor();
 });
+
 
 //---------绘图部分-----------
 let clicked = false;//曾点击过

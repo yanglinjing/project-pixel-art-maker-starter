@@ -29,7 +29,7 @@ form.submit(function makeGrid(){
         table.append("<tr></tr>");
     }
     for(let column=0; column<width; column++){
-        table.children('tr').append("<td style=\"background-color:#fff\"></td>");
+        table.children('tr').append("<td style=\"background-color:\"></td>");
     }
     event.preventDefault();//防止一提交就归零
 });
@@ -39,9 +39,36 @@ form.submit(function makeGrid(){
 let color;
 color = "#ff80ff";//定义颜色初始值
 $('#myColor').text(color);//文字显示当前颜色值
-$('#colorPicker').change(function(){//更改颜色值
-    color = $(this).val();
+
+let inkColor = [];
+function inkBox(newColor){
+    inkColor.unshift(newColor);//把颜色值添加到数组第一个位置
+    if(inkColor.length=6){
+      inkColor.pop();//保持始终只有5个颜色值
+    }
+}
+
+$('#colorPicker').change(function(){
+    color = $(this).val();//更改颜色值
     $('#myColor').text(color);//文字显示当前颜色值
+    inkBox(color);
+    $('#inkBox1').css("background-color", inkColor[0]);//在小方格里保存颜色值
+    $('#inkBox2').css("background-color", inkColor[1]);
+    $('#inkBox3').css("background-color", inkColor[2]);
+    $('#inkBox4').css("background-color", inkColor[3]);
+    $('#inkBox5').css("background-color", inkColor[4]);
+    $('#inkColorText').text(inkColor);
+});
+
+
+$('#inkBox').on('click', 'td', function(){
+    let inkRgb;
+    inkRgb = $(this).css("background-color");
+    color = rgb2hex(inkRgb);
+    
+    inkBox(color);
+
+    $('#colorPickerValue').text(color);//文字显示当前颜色值
 });
 
 //---------绘图部分-----------
@@ -74,7 +101,7 @@ table.on('mouseenter', 'td', function(){
 
 table.on('mouseleave', 'td', function(){//mousemove和mouseenter/mouseleave有冲突，会彼此覆盖
     if(!clicked){//鼠标离开时，格子恢复之前颜色
-      $(this).css("background-color", rgb2hex(rgb));
+      $(this).css("background-color", rgb);
     }
     clicked = false;
 });

@@ -61,14 +61,18 @@ $('#colorPicker').change(function(){
 });
 
 
-$('#inkBox').on('click', 'td', function(){
+$('#inkBox').on('click', 'td', function(){//点击已保存的值时，替换当前颜色值
     let inkRgb;
     inkRgb = $(this).css("background-color");
     color = rgb2hex(inkRgb);
-    
-    inkBox(color);
-
     $('#colorPickerValue').text(color);//文字显示当前颜色值
+
+    inkBox(color);
+    $('#inkBox1').css("background-color", inkColor[0]);//在小方格里保存颜色值
+    $('#inkBox2').css("background-color", inkColor[1]);
+    $('#inkBox3').css("background-color", inkColor[2]);
+    $('#inkBox4').css("background-color", inkColor[3]);
+    $('#inkBox5').css("background-color", inkColor[4]);
 });
 
 //---------绘图部分-----------

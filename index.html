@@ -2,45 +2,89 @@
 <html>
 <head>
     <title>Pixel Art Maker!</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monoton">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
   crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <h1>Lab: Pixel Art Maker</h1>
+  <header>
+      <h1>Lab: Pixel Art Maker</h1>
+  </header>
 
-<!--用户定义表格尺寸-->
-    <h2>Choose Grid Size</h2>
-    <form id="sizePicker">
-        Grid Height:
-        <input type="number" id="input_height" name="height" min="1" value="1">
-        Grid Width:
-        <input type="number" id="input_width" name="width" min="1" value="1">
-        <input type="submit">
-    </form>
+  <section class="comtainer">
+    <div class="row">
+      <div class="col-md-3">
 
-<!--调色盘-->
-    <h2>Pick A Color</h2>
-    <input type="color" id="colorPicker" value="#ff80ff">
+        <!--用户定义表格尺寸-->
+        <div class="leftBox">
+          <h3>Choose Grid Size</h3>
+          <form id="sizePicker">
+              <div class="leftRow">
+                Grid Height:
+                <input type="number" id="input_height" name="height" min="1" value="1">
+              </div>
 
-    <input type="text" id="typeColor" value="Color in hex format">
-    <p id="notice"></p>
+              <div class="leftRow">
+                Grid Width :
+                <input type="number" id="input_width" name="width" min="1" value="1">
+              </div>
 
-    <table id="inkBox">
-      <tr><td id="inkBox1"></td></tr>
-      <tr><td id="inkBox2"></td></tr>
-      <tr><td id="inkBox3"></td></tr>
-      <tr><td id="inkBox4"></td></tr>
-      <tr><td id="inkBox5"></td></tr>
-    </table>
+              <div class="leftRow">
+                <input type="submit">
+              </div>
+          </form>
+        </div>
 
-<!--绘画部分-->
-    <h2>Design Canvas</h2>
-    <table id="pixel_canvas"></table>
+      <!--调色盘-->
+        <div class="leftBox">
+          <h3>Color Picker</h3>
 
-    <script src="designs.js"></script>
+          <div class="curColor">
+            <div id="curColorBox"></div>
+            <p id="CurColorText"></p>
+          </div>
+
+          <div class="leftRow pickColor">
+            <p>Pick A Color:</p>
+            <input type="color" id="colorPicker">
+          </div>
+
+          <div class="leftRow pickColor">
+            <p>Type Hex Color:</p>
+            <input type="text" id="typeColor" value="#000000">
+          </div>
+
+          <p id="notice"></p>
+
+          <p>Last Used Colors</p>
+          <table id="inkBox">
+            <tr>
+              <td id="inkBox1"></td>
+              <td id="inkBox2"></td>
+              <td id="inkBox3"></td>
+              <td id="inkBox4"></td>
+              <td id="inkBox5"></td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+
+      <!--绘画部分-->
+      <div class="col-md-9">
+          <h2>Design Canvas</h2>
+          <table id="pixel_canvas"></table>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="designs.js"></script>
 </body>
 </html>

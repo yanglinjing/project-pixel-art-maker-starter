@@ -37,7 +37,7 @@ form.submit(function makeGrid(){
 
 //---------调色盘部分-----------
 let color;
-color = "#ff80ff";//定义颜色初始值
+//color = "#ff80ff";//定义颜色初始值
 
 let inkColor = [];
 function inkBoxArray(newColor){//数组保存最多5个用过颜色值
@@ -52,6 +52,9 @@ function inkBoxColor(){//在小方格里画出保存的颜色值
     $('#inkBox3').css("background-color", inkColor[2]);
     $('#inkBox4').css("background-color", inkColor[3]);
     $('#inkBox5').css("background-color", inkColor[4]);
+    $('#curColorBox').css("background-color", inkColor[0]);
+    $('#CurColorText').text(inkColor[0]);
+    $('#CurColorText').css("color", color);
 }
 
 $('#colorPicker').change(function(){//点击拾色器，选择当前颜色
@@ -67,6 +70,10 @@ $('#inkBox').on('click', 'td', function(){//点击已保存的值时，替换当
     color = rgb2hex(inkRgb);
     inkBoxArray(color);
     inkBoxColor();
+});
+
+$('#typeColor').click(function(){
+    $(this).select();
 });
 
 $('#typeColor').on('change', function(){
@@ -123,7 +130,7 @@ function rgb2hex(rgb) {
     if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(rgb)){
       preColor=rgb;
       return preColor;
-    }else{//如何应对rgba(0,0,0,0)呢？暂时把背景色设置成#fff
+    }else{
       rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
       function hex(x) {return ("0" + parseInt(x).toString(16)).slice(-2);}
       preColor = "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);

@@ -33,9 +33,10 @@ td {
 }
 
 table {
-    border-collapse: collapse;
+    border-collapse: separate;
     margin: 0 auto;
 }
+/*原本用的border-collapse: collapse; 但是影响画图时候边框的消除，也影响点击（容易选不中）*/
 
 tr {
     height: 20px;

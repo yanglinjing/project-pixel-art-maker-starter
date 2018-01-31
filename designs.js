@@ -37,7 +37,6 @@ form.submit(function makeGrid(){
 
 //---------调色盘部分-----------
 let color;
-//color = "#ff80ff";//定义颜色初始值
 
 let inkColor = [];
 function inkBoxArray(newColor){//数组保存最多5个用过颜色值
@@ -102,6 +101,10 @@ table.on('mousedown', 'td', function(){
   clicking = true;
 });
 $(document).on('mouseup', function(){
+  clicking = false;
+});
+
+$(document).on('contextmenu', function(){ //防止右键点击时候，也会画出颜色
   clicking = false;
 });
 

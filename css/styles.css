@@ -97,3 +97,15 @@ input[type=number] {
 #notice {
   font: 12px red;
 }
+
+.eraserFont{
+    font-weight: normal;
+}
+
+.eraserFont:hover{
+  text-decoration: underline;
+}
+
+.eraserTool{
+  margin: 16px auto 6px;
+}

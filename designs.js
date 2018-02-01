@@ -61,7 +61,6 @@ $('#colorPicker').change(function(){//点击拾色器，选择当前颜色
     color = $(this).val();//更改颜色值
     inkBoxArray(color);
     inkBoxColor();
-
 });
 
 function unique(array){//点击“历史颜色”时候，从数组中删去当前位置的color，这样“历史颜色”里就不会出现重复的颜色
@@ -99,19 +98,35 @@ $('#typeColor').on('change', function(){
     }
 });
 
+//-------------<橡皮>-----------
+let eraserInUse = false;
+$('#eraser').click(function(){
+  if($(this).is(':checked')){
+    eraserInUse = true;
+  }else{
+    eraserInUse = false;
+  }
+});
+
 //---------绘图部分-----------
+//---------<点击绘图>-----------
 let clicked = false;//曾点击过
 
 table.on('click', 'td', function(){//点击变色
-  $(this).css({"background-color":color, "border-color":color});
+  if(!eraserInUse){//非橡皮擦状态下
+      $(this).css({"background-color":color, "border-color":color});
+  }else{//橡皮擦状态下
+      $(this).css({"background-color":"#f1f1f1", "border-color":"#fff"});
+  }
   clicked = true;
 });
 
+//---------<按住左键拖拽绘图>及<鼠标悬停变色>-------
 let clicking = false;//按住鼠标左键
 table.on('mousedown', 'td', function(){
   clicking = true;
 });
-$(document).on('mouseup', function(){
+$(document).on('mouseup', function(){//放开鼠标左键
   clicking = false;
 });
 
@@ -119,21 +134,23 @@ $(document).on('contextmenu', function(){ //防止右键点击时候，也会画
   clicking = false;
 });
 
-var rgb;
+let rgbBg, rgbBorder;
 table.on('mouseenter', 'td', function(){
-    rgb = $(this).css("background-color");//获取td的颜色
-    if(clicking){//按下鼠标+滑动=变色
+    rgbBg = $(this).css("background-color");//获取td的背景颜色
+    rgbBorder = $(this).css("border-color");//获取td的边框颜色
+    if(!eraserInUse){//非橡皮擦状态下
         $(this).css({"background-color":color, "border-color":color});
-        clicked = true;
-    }else{//鼠标悬停时，格子变色
-        $(this).css("background-color", color); //可用
+    }else{//橡皮擦状态下
+        $(this).css({"background-color":"#f1f1f1", "border-color":"#fff"});
     }
-//    $('#tdColor').text(rgb2hex(rgb));//文字表述获取的td颜色,html已删
+    if(clicking){//按下鼠标+滑动=变色
+        clicked = true;
+    }
 });
 
 table.on('mouseleave', 'td', function(){//mousemove和mouseenter/mouseleave有冲突，会彼此覆盖
     if(!clicked){//鼠标离开时，格子恢复之前颜色
-      $(this).css("background-color", rgb);
+      $(this).css({"background-color":rgbBg, "border-color":rgbBorder});
     }
     clicked = false;
 });

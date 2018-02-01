@@ -98,6 +98,11 @@ input[type=number] {
   font: 12px red;
 }
 
+.noBg{
+    border: 1px solid #f1f1f1;
+    background: none;
+}
+
 .eraserFont{
     font-weight: normal;
 }

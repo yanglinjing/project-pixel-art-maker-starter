@@ -63,6 +63,7 @@ $('#colorPicker').change(function(){//点击拾色器，选择当前颜色
     inkBoxColor();
 });
 
+//-------------<选择历史颜色>-----------
 function unique(array){//点击“历史颜色”时候，从数组中删去当前位置的color，这样“历史颜色”里就不会出现重复的颜色
   for(const i in array){//遍历当前数组:因为index是可枚举属性，所以要用for in而不是for of
     if(array[i]===color){
@@ -75,12 +76,15 @@ function unique(array){//点击“历史颜色”时候，从数组中删去当�
 $('#inkBox').on('click', 'td', function(){//点击已保存的值时，替换当前颜色值
     let inkRgb;
     inkRgb = $(this).css("background-color");
-    color = rgb2hex(inkRgb);
+    if(inkRgb != "rgba(0, 0, 0, 0)"){//小方格初始为透明色，不加这句话的话，总是在rgb2hex函数那报错
+      color = rgb2hex(inkRgb);
+    }
     unique(inkColor);//从数组中删去当前位置的color
     inkBoxArray(color);//把color添加到数组第一个位置
     inkBoxColor();
 });
 
+//-------------<手写颜色代码>-----------
 $('#typeColor').click(function(){
     $(this).select();
 });

@@ -107,8 +107,10 @@ let eraserInUse = false;
 $('#eraser').click(function(){
   if($(this).is(':checked')){
     eraserInUse = true;
+    $('#pixel_canvas').css("cursor", "url(images/eraser.ico), auto");
   }else{
     eraserInUse = false;
+    $('#pixel_canvas').css("cursor", "url(images/pencil.ico), auto");
   }
 });
 

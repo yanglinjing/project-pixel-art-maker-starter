@@ -161,7 +161,8 @@ table.on('mouseleave', 'td', function(){//mousemove和mouseenter/mouseleave有�
     clicked = false;
 });
 
-//-----------rgb转换hex（因为jQuery提取的颜色格式rgb hex rgba各不相同）----------
+//-----------rgb转换hex：颜色转换代码参考互联网-------------
+//-----（因为jQuery提取的颜色格式rgb hex rgba各不相同）-----
 function rgb2hex(rgb) {
     let preColor;
     if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(rgb)){

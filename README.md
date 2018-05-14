@@ -17,7 +17,7 @@ In this app, you can:
 2. Choose a color.
 3. Click a cell in the grid to fill that cell with the chosen color.
 
-[!Image text](images/readme_pic.jpg)
+![Image text](images/readme_pic.jpg)
 
 
 ## Contributing
